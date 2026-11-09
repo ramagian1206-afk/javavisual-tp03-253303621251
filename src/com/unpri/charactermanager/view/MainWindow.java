@@ -1,3 +1,4 @@
+
 package com.unpri.charactermanager.view;
 
 import com.unpri.charactermanager.model.Character;
@@ -8,35 +9,109 @@ import java.util.ArrayList;
 
 public class MainWindow extends JFrame {
 
+    // Konstanta batas level untuk teks emas
+    private static final int GOLD_LEVEL_THRESHOLD = 5;
+
     public MainWindow(ArrayList<Character> characterList) {
-        setTitle("Character Manager v0.3");
-        setSize(450, 400);
+
+        setTitle("Character Manager v0.4");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(
+            new BoxLayout(mainPanel, BoxLayout.Y_AXIS)
+        );
 
-        JLabel titleLabel = new JLabel("Character Manager");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        mainPanel.setBackground(AppTheme.BACKGROUND_COLOR);
+        mainPanel.setBorder(AppTheme.MAIN_BORDER);
+
+        // Judul aplikasi
+        JLabel titleLabel = new JLabel("CHARACTER MANAGER");
+        titleLabel.setFont(AppTheme.TITLE_FONT);
+        titleLabel.setForeground(AppTheme.TEXT_COLOR);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panel.add(titleLabel);
-        panel.add(Box.createVerticalStrut(15));
+        mainPanel.add(titleLabel);
+        mainPanel.add(Box.createVerticalStrut(20));
 
-        // Menampilkan karakter secara dinamis
+        // Panel daftar karakter
+        JPanel characterPanel = new JPanel();
+        characterPanel.setLayout(
+            new GridLayout(0, 1, 0, 10)
+        );
+
+        characterPanel.setBackground(
+            AppTheme.BACKGROUND_COLOR
+        );
+
         int totalLevel = 0;
 
+        // Menampilkan karakter secara dinamis
         for (Character character : characterList) {
-            JLabel characterLabel = new JLabel(
-                character.getName() + " | "
-                + character.getType() + " | Level "
-                + character.getLevel()
+
+            JPanel card = new JPanel();
+            card.setLayout(
+                new BoxLayout(card, BoxLayout.Y_AXIS)
             );
 
-            characterLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            panel.add(characterLabel);
+            // Warna kartu sesuai role
+            card.setBackground(
+                AppTheme.colorFor(character.getType())
+            );
+
+            card.setOpaque(true);
+            card.setBorder(AppTheme.CARD_BORDER);
+
+            JLabel nameLabel = new JLabel(
+                character.getName()
+            );
+
+            nameLabel.setFont(AppTheme.BODY_FONT);
+            nameLabel.setForeground(AppTheme.TEXT_COLOR);
+
+            JLabel roleLabel = new JLabel(
+                "Role: " + character.getType()
+            );
+
+            roleLabel.setFont(AppTheme.BODY_FONT);
+            roleLabel.setForeground(AppTheme.TEXT_COLOR);
+
+            JLabel levelLabel = new JLabel(
+                "Level: " + character.getLevel()
+            );
+
+            // Mini-Challenge: level minimal 5 berwarna emas
+            if (character.getLevel() >= GOLD_LEVEL_THRESHOLD) {
+
+                levelLabel.setForeground(AppTheme.GOLD_COLOR);
+                levelLabel.setFont(AppTheme.LEVEL_FONT);
+
+            } else {
+
+                levelLabel.setForeground(AppTheme.TEXT_COLOR);
+                levelLabel.setFont(AppTheme.BODY_FONT);
+            }
+
+            // Properti tambahan 1: Tooltip
+            card.setToolTipText(
+                character.getName()
+                + " | Role: " + character.getType()
+                + " | Level: " + character.getLevel()
+            );
+
+            // Properti tambahan 2: Level 1 dinonaktifkan
+            if (character.getLevel() == 1) {
+                card.setEnabled(false);
+                nameLabel.setEnabled(false);
+                roleLabel.setEnabled(false);
+                levelLabel.setEnabled(false);
+            }
+
+            card.add(nameLabel);
+            card.add(roleLabel);
+            card.add(levelLabel);
+
+            characterPanel.add(card);
 
             totalLevel += character.getLevel();
         }
@@ -45,21 +120,29 @@ public class MainWindow extends JFrame {
         double averageLevel = 0;
 
         if (!characterList.isEmpty()) {
-            averageLevel = (double) totalLevel / characterList.size();
+            averageLevel =
+                (double) totalLevel / characterList.size();
         }
-
-        panel.add(Box.createVerticalStrut(15));
 
         JLabel averageLabel = new JLabel(
             "Rata-rata Level: "
             + String.format("%.2f", averageLevel)
         );
 
-        averageLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        averageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        averageLabel.setFont(AppTheme.LEVEL_FONT);
+        averageLabel.setForeground(AppTheme.TEXT_COLOR);
+        averageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panel.add(averageLabel);
+        mainPanel.add(characterPanel);
+        mainPanel.add(Box.createVerticalStrut(15));
+        mainPanel.add(averageLabel);
 
-        add(panel);
+        setContentPane(mainPanel);
+
+        // Ukuran otomatis mengikuti komponen
+        pack();
+
+        setMinimumSize(new Dimension(400, 300));
+        setLocationRelativeTo(null);
     }
 }

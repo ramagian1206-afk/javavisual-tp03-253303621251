@@ -31,7 +31,6 @@ public class Main {
             new Character("Luna", CharacterType.HEALER, 4)
         );
 
-        // Menambahkan 2 karakter baru
         manager.addCharacter(
             new Character("Thor", CharacterType.WARRIOR, 7)
         );
@@ -40,8 +39,14 @@ public class Main {
             new Character("Elena", CharacterType.MAGE, 6)
         );
 
+        // Karakter tambahan level 1
+        manager.addCharacter(
+            new Character("Nina", CharacterType.HEALER, 1)
+        );
+
         // Menjalankan GUI pada Event Dispatch Thread
         SwingUtilities.invokeLater(() -> {
+
             MainWindow window = new MainWindow(
                 manager.getAllCharacters()
             );
