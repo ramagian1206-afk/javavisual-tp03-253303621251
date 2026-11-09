@@ -140,3 +140,36 @@ Pada TP8, Main.java berfungsi sebagai titik awal program yang membuat objek Char
 ### Analisis GUI dan MVC
 
 Link Google Docs: https://docs.google.com/document/d/1jIVM8vXER15CM1TDyKs1shFwCmI-wVbKZDxcKYb78LI/edit?usp=sharing
+
+
+======================================================================
+
+
+## TP10 — Character Manager Sprint #4
+
+### Screenshot Tampilan
+
+**Sebelum (MainWindow v0.3):**
+
+![Tampilan sebelum tema TP10](c:\Users\Admin\OneDrive\Pictures\Screenshots\SEBELUM EUH.png)
+
+**Sesudah (MainWindow v0.4):**
+
+![Tampilan sesudah tema TP10](c:\Users\Admin\OneDrive\Pictures\Screenshots\SESUDAH EUH.png)
+
+### Implementasi AppTheme
+
+Pada TP10, pengaturan warna, font, dan border dipisahkan ke dalam kelas AppTheme. Hal ini dilakukan agar pengaturan tampilan aplikasi lebih terpusat dan mudah diubah tanpa harus mengedit banyak bagian kode MainWindow. Warna karakter ditentukan berdasarkan role menggunakan method colorFor(). Pengaturan tampilan tidak dimasukkan ke dalam Character karena kelas tersebut bertugas mengelola data karakter, bukan mengatur tampilannya.
+
+### Properti Tambahan
+
+1. **Tooltip:** Menampilkan informasi nama, role, dan level karakter ketika kursor diarahkan ke kartu. Properti ini dipilih agar pengguna dapat memperoleh informasi tambahan tanpa membuat tampilan terlalu penuh.
+2. **setEnabled(false):** Karakter dengan level 1 dibuat nonaktif secara visual. Properti ini dipilih untuk membedakan karakter yang masih berada pada level awal dari karakter lainnya.
+
+### Mini-Challenge
+
+Karakter dengan level minimal 5 mendapatkan teks level berwarna emas dan tebal. Batas level disimpan dalam konstanta `GOLD_LEVEL_THRESHOLD` agar mudah diatur kembali.
+
+### Analisis Properti dan MVC
+
+Link Google Docs: https://docs.google.com/document/d/1OMnKH35FGkj5YOYqIGkHbRnDroCIB6cUGH4w2wAVTeI/edit?usp=sharing
