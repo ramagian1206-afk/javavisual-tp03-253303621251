@@ -110,3 +110,33 @@ CharacterManager/
 
 ### Google Docs TP5
 [https://docs.google.com/document/d/1U3hpXcdxr9esQDYQ1wy4motyVTr7KuZ83ZJXvpA68B4/edit?usp=sharing]
+
+
+======================================================================
+
+## TP8 — Character Manager Sprint #3
+
+### Screenshot MainWindow
+
+**Sebelum perubahan data:**
+
+![Screenshot sebelum penambahan karakter](c:\Users\Admin\OneDrive\Pictures\Screenshots\tp8-sebelum.png.png)
+
+**Sesudah perubahan data:**
+
+![Screenshot sesudah penambahan karakter](c:\Users\Admin\OneDrive\Pictures\Screenshots\tp8-sesudah.png.png)
+
+### Aliran Data dan MVC
+
+Pada TP8, Main.java berfungsi sebagai titik awal program yang membuat objek CharacterManager dan menambahkan data karakter. CharacterManager bertugas mengelola data karakter, kemudian data tersebut diambil melalui method getAllCharacters() dan dikirimkan ke MainWindow. MainWindow sebagai View bertugas menampilkan data karakter dalam bentuk GUI menggunakan JLabel. Pemisahan ini sesuai dengan konsep MVC karena pengelolaan data berada di Model, sedangkan View bertanggung jawab terhadap tampilan antarmuka.
+
+### Karakter Baru
+
+| Nama | Tipe | Level | Alasan |
+|---|---|---:|---|
+| Thor | WARRIOR | 7 | Dipilih sebagai karakter petarung dengan level tinggi. |
+| Elena | MAGE | 6 | Dipilih sebagai karakter penyihir dengan level menengah. |
+
+### Analisis GUI dan MVC
+
+Link Google Docs: https://docs.google.com/document/d/1jIVM8vXER15CM1TDyKs1shFwCmI-wVbKZDxcKYb78LI/edit?usp=sharing
