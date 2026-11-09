@@ -1,8 +1,9 @@
 package com.unpri.charactermanager.model;
 
+import java.util.Objects;
+
 public class Character {
 
-    // Atribut
     private String name;
     private CharacterType type;
     private int level;
@@ -10,22 +11,23 @@ public class Character {
     private int attack;
     private int mana;
 
+    // Menghitung jumlah objek Character yang dibuat
+    private static int totalCharacterCreated = 0;
+
     // Constructor pertama
     public Character(String name, CharacterType type) {
-        this.name = name;
-        this.type = type;
-        this.level = 1;
-        this.hitPoints = 100;
-        this.attack = 10;
-        this.mana = 50;
+        this(name, type, 1);
     }
 
     // Constructor kedua
     public Character(String name, CharacterType type, int level) {
         this.name = name;
         this.type = type;
-        setLevel(level);
         this.mana = 50;
+
+        setLevel(level);
+
+        totalCharacterCreated++;
     }
 
     // Getter dan Setter Name
@@ -54,13 +56,11 @@ public class Character {
     public void setLevel(int level) {
         if (level < 1) {
             throw new IllegalArgumentException(
-                "Level tidak boleh kurang dari 1"
+                    "Level tidak boleh kurang dari 1"
             );
         }
 
         this.level = level;
-
-        // HP dan attack dihitung ulang berdasarkan level
         this.hitPoints = 100 * level;
         this.attack = 10 * level;
     }
@@ -73,7 +73,7 @@ public class Character {
     public void setHitPoints(int hitPoints) {
         if (hitPoints < 0) {
             throw new IllegalArgumentException(
-                "Hit points tidak boleh negatif"
+                    "HP tidak boleh negatif"
             );
         }
 
@@ -88,7 +88,7 @@ public class Character {
     public void setAttack(int attack) {
         if (attack < 0) {
             throw new IllegalArgumentException(
-                "Attack tidak boleh negatif"
+                    "Attack tidak boleh negatif"
             );
         }
 
@@ -103,24 +103,52 @@ public class Character {
     public void setMana(int mana) {
         if (mana < 0) {
             throw new IllegalArgumentException(
-                "Mana tidak boleh negatif"
+                    "Mana tidak boleh negatif"
             );
         }
 
         this.mana = mana;
     }
 
-    // Method Level Up
+    // Level Up
     public void levelUp() {
         setLevel(this.level + 1);
     }
 
-    // Method untuk mengecek karakter masih hidup
+    // Mengecek status hidup
     public boolean isAlive() {
         return hitPoints > 0;
     }
 
-    // Method toString
+    // Getter static
+    public static int getTotalCharacterCreated() {
+        return totalCharacterCreated;
+    }
+
+    // Membandingkan karakter berdasarkan nama
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Character)) {
+            return false;
+        }
+
+        Character other = (Character) obj;
+
+        return Objects.equals(this.name, other.name);
+    }
+
+    // HashCode harus konsisten dengan equals
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    // Menampilkan informasi karakter
     @Override
     public String toString() {
         return "Character{" +
